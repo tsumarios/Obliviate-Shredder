@@ -38,6 +38,7 @@ pip install pycryptodome
 ```sh
 git clone https://github.com/tsumarios/obliviate-shredder.git
 cd obliviate-shredder
+```
 
 2️⃣ Install dependencies:
 

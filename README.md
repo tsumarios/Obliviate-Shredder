@@ -105,8 +105,9 @@ _(Uses 8 threads for faster deletion.)_
 
 ```sh
 2025-03-06 15:45:10 | INFO  | 🔥🪄 Obliviate Shredder - Magic File Erasure🔥🪄
-2025-03-06 15:45:10 | INFO  | 🪄 Obliviate! 💀💨 Erasing: /path/to/secret.txt ...
-2025-03-06 15:45:11 | DEBUG | 🔐 File encrypted before deletion: /path/to/secret.txt
+2025-03-06 15:45:10 | DEBUG | 🛠 Debug mode enabled! Verbose logging activated.
+2025-03-06 15:45:11 | INFO  | 🪄 Obliviate! 💀💨 Erasing: /path/to/secret.txt ...
+2025-03-06 15:45:12 | DEBUG | 🔐 File encrypted before deletion: /path/to/secret.txt
 2025-03-06 15:45:12 | DEBUG | ✅ Overwritten /path/to/secret.txt using method: random
 2025-03-06 15:45:13 | DEBUG | 🔄 File renamed multiple times to: /randomly/named/file123
 2025-03-06 15:45:14 | INFO  | /randomly/named/file123 gone. 💀

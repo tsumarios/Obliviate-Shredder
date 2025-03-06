@@ -287,15 +287,16 @@ def main():
     # Parse command-line arguments
     args = parser.parse_args()
 
+    logging.info("\033[1;36m🔥🪄 Obliviate Shredder - Magic File Erasure🔥🪄\033[0m")
+
     if args.debug:  # Enable debug mode
         logging.getLogger().setLevel(logging.DEBUG)
         logging.debug(
             "\033[1;34m🛠 Debug mode enabled! Verbose logging activated.\033[0m"
         )
 
-    # Start the shredding process
-    logging.info("\033[1;36m🔥🪄 Obliviate Shredder - Magic File Erasure🔥🪄\033[0m")
     shred(args.path, args.passes, args.method, args.encrypt, args.threads)
+
     logging.info(f"\033[1;32m✅ Obliviate shredding completed! 🪄 💀\033[0m")
 
 

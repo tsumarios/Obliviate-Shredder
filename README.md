@@ -126,4 +126,9 @@ Use with extreme caution! 💀🔥
 - LinkedIn: linkedin.com/in/marioraciti
 - Twitter: twitter.com/tsumarios
 
-💀🔥 Now go forth, and cast the ultimate Obliviate spell on your files! 🪄💨
+_If you want to support me, I would be grateful ❤️_
+
+<a href="https://www.buymeacoffee.com/tsumarios" target="_blank"><img
+        src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="40"></a>
+
+💀🔥 _Now go forth, and cast the ultimate Obliviate spell on your files!_ 🪄💨

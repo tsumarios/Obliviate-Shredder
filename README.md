@@ -52,18 +52,43 @@ pip install -r requirements.txt
 python3 obliviate_shredder.py --help
 ```
 
+#### 🛠️ (Optional) Build a Standalone Executable with Nuitka
+
+You can also compile the shredder into a single executable (no Python interpreter required).
+
+Install nuitka:
+
+```sh
+pip install nuitka
+```
+
+Build the executable:
+
+```sh
+nuitka --standalone --no-deployment-flag=self-execution --onefile obliviate_shredder.py
+```
+
+This will generate a standalone binary in the current directory.
+Move the binary to a desired location for convenient use, e.g., `/usr/local/bin/`:
+
+```sh
+mv obliviate_shredder.bin /usr/local/bin/obliviate_shredder
+```
+
+_You can now run it from anywhere in your terminal!_
+
 ## 🪄 Usage
 
 ### Basic File Shredding
 
 ```sh
-python3 obliviate_shredder.py /path/to/file
+obliviate_shredder /path/to/file
 ```
 
 ###  Shred an Entire Folder
 
 ```sh
-python3 obliviate_shredder.py /path/to/folder
+obliviate_shredder /path/to/folder
 ```
 
 ### Options
@@ -71,19 +96,19 @@ python3 obliviate_shredder.py /path/to/folder
 #### Enable AES-256 Encryption Before Shredding
 
 ```sh
-python3 obliviate_shredder.py /path/to/file -e
+obliviate_shredder /path/to/file -e
 ```
 
 #### Use a Different Overwrite Method
 
 ```sh
-python3 obliviate_shredder.py /path/to/file -m [random|crypto|hash]
+obliviate_shredder /path/to/file -m [random|crypto|hash]
 ```
 
 #### Custom Overwrite Passes
 
 ```sh
-python3 obliviate_shredder.py /path/to/file -p 5
+obliviate_shredder /path/to/file -p 5
 ```
 
 _(Runs 5 overwrite passes.)_
@@ -91,13 +116,13 @@ _(Runs 5 overwrite passes.)_
 #### Enable Debug Mode
 
 ```sh
-python3 obliviate_shredder.py /path/to/file -d
+obliviate_shredder /path/to/file -d
 ```
 
 #### Use Multithreading for Large Folders
 
 ```sh
-python3 obliviate_shredder.py /path/to/folder -t 8
+obliviate_shredder /path/to/folder -t 8
 ```
 
 _(Uses 8 threads for faster deletion.)_

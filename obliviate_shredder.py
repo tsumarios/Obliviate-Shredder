@@ -32,25 +32,36 @@ logging.basicConfig(
 
 
 # 🪄 MAGIC SPELL ANIMATION 🪄
-def spell_animation(file_path):
+def spell_animation(path, is_folder=False):
     """
-    Displays a magical spell-casting effect for file shredding.
+    Displays a magical spell-casting effect for file/folder shredding.
 
     Args:
-        file_path (str): The file being erased.
+        path (str): The file/folder being erased.
+        is_folder (bool): Whether the path is a folder.
     """
-    spell_text = f"🪄 Obliviate! 💀💨 Erasing: {file_path} ..."
+    spell_text = (
+        f"🪄 Obliviate! 💀💨 Erasing folder: {path} ..."
+        if is_folder
+        else f"🪄 Obliviate! 💀💨 Erasing: {path} ..."
+    )
     logging.info(f"\033[1;35m{spell_text}\033[0m")
 
 
-def disappearing_effect(file_path):
+def disappearing_effect(path, is_folder=False):
     """
     Simulates a disappearing effect when the file is deleted.
 
     Args:
-        file_path (str): The path of the file being deleted.
+        path (str): The path of the file/folder being deleted.
+        is_folder (bool): Whether the path is a folder.
     """
-    logging.info(f"\033[1;31m{file_path} gone. 💀\033[0m\n")
+    disappearing_text = (
+        f"\033[1;31mFolder shredded: {path} 🔥\033[0m"
+        if is_folder
+        else f"\033[1;31m{path} gone. 💀\033[0m"
+    )
+    logging.info(disappearing_text)
 
 
 # 🔥 SECURE FILE OVERWRITE 🔥
@@ -134,6 +145,32 @@ def rename_file_randomly(file_path, times=3):
     return file_path
 
 
+# 🔥 RANDOM FOLDER RENAMING 🔥
+def rename_folder_randomly(folder_path, times=3):
+    """
+    Renames a folder multiple times to hinder forensic recovery.
+
+    Args:
+        folder_path (str): The folder to rename.
+        times (int): Number of renaming iterations.
+
+    Returns:
+        str: Final renamed folder path.
+    """
+    parent_dir = os.path.dirname(folder_path)
+    for _ in range(times):
+        new_name = "".join(
+            random.choices(
+                string.ascii_letters + string.digits, k=random.randint(8, 32)
+            )
+        )
+        new_path = os.path.join(parent_dir, new_name)
+        os.rename(folder_path, new_path)
+        folder_path = new_path
+    logging.debug(f"🔄 Folder renamed multiple times to: {folder_path}")
+    return folder_path
+
+
 # 🔥 METADATA DESTRUCTION 🔥
 def destroy_metadata(file_path):
     """
@@ -182,12 +219,13 @@ def shred_file(file_path, passes=3, method="random", encrypt=False):
         return
 
     try:
+        spell_animation(file_path)
+        destroy_metadata(file_path)
+
         if encrypt:
             encrypt_file(file_path)
 
-        spell_animation(file_path)
         overwrite_file(file_path, method, passes)
-        destroy_metadata(file_path)
         file_path = rename_file_randomly(file_path)
         os.remove(file_path)
         disappearing_effect(file_path)
@@ -216,7 +254,7 @@ def worker(queue, passes, method, encrypt):
 
 def shred_folder(folder_path, passes=3, method="random", encrypt=False, threads=4):
     """
-    Shreds all files in a folder using multithreading.
+    Shreds all files in a folder using multithreading, renames and deletes the folder securely.
 
     Args:
         folder_path (str): The folder to be shredded.
@@ -237,6 +275,7 @@ def shred_folder(folder_path, passes=3, method="random", encrypt=False, threads=
         thread.start()
         workers.append(thread)
 
+    # Walk through the folder tree bottom-up
     for root, _, files in os.walk(folder_path, topdown=False):
         for name in files:
             file_path = os.path.join(root, name)
@@ -249,8 +288,11 @@ def shred_folder(folder_path, passes=3, method="random", encrypt=False, threads=
     for thread in workers:
         thread.join()
 
+    spell_animation(folder_path, is_folder=True)
+    destroy_metadata(folder_path)
+    folder_path = rename_folder_randomly(folder_path)
     shutil.rmtree(folder_path)
-    logging.info(f"\033[1;31mFolder shredded: {folder_path} 🔥\033[0m\n")
+    disappearing_effect(folder_path, is_folder=True)
 
 
 # 🔥 Master Shred Function 🔥
